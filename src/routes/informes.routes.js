@@ -35,10 +35,12 @@ router.get('/pdf/:idInspection', async (req, res) => {
             INNER JOIN licensecategory ON licensecategory.idLicenseCategory = drivers.licenseCategoryId
             INNER JOIN firms ON firms.idFirms = drivers.firmsId
             WHERE inspectiondata.idInspection = `+ idInspection + `;`);
+        
         const [inspection] = await pool.query(`SELECT subSpecification, convention, s.specificationId FROM inspection i
             LEFT JOIN subspecifications s ON i.subSpecificationsId = s.idSubspecification
             RIGHT JOIN conventions c ON c.idConvention = i.conventionId
             WHERE inspectionId = `+ idInspection);
+        
         const [specification] = await pool.query(`SELECT * FROM specifications`);
         const content = generateContent(vehicleReport[0], inspection, specification);
         let docDefinition = {
@@ -54,6 +56,7 @@ router.get('/pdf/:idInspection', async (req, res) => {
         pdfDoc.pipe(res);
         pdfDoc.end();
     } catch (error) {
+        console.error(error);
         res.status(500).send('Error al generar el PDF');
     }
 });

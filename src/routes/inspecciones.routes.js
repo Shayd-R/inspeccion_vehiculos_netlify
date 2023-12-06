@@ -24,8 +24,8 @@ router.post('/addInspect', async (req, res) => {
             idLicensePlate, vehicleType, driverId, driversLicenseExpiration, technomechanicsReviewExpiry, soatExpiration, expiryLifeLine, expiryCivilLiabilityPolicy, expiryCivilHydrocarbonsPolicy,
             idTrailerPlate, capacityTable, hydrostaticExpiration, expiryFifthWheel, kingPinExpiry
         }
-        const [driverVerificationData] = await pool.query("SELECT * FROM drivers WHERE idDriver = ?", driverId);
-        const driverVerification = driverVerificationData[0];
+        const [vehicleVerificationData] = await pool.query("SELECT * FROM vehicleInformation WHERE idLicensePlate = ?", idLicensePlate);
+        const vehicleVerification = vehicleVerificationData[0];
         if (!vehicleVerification) {
             const [driverVerificationData] = await pool.query("SELECT * FROM drivers WHERE idDriver = ?", driverId);
             const driverVerification = driverVerificationData[0];
