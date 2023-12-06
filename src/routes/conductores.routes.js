@@ -15,8 +15,8 @@ router.get('/addconductor', async (req, res) => {
 
 router.post('/addDriver', async (req, res) => {
     try {
-        const { idDriver, name, cellPhoneNumber, licenseNumber, licensecategoryId, driversLicenseExpiration } = req.body;
-        const newDriver = { idDriver, name, cellPhoneNumber, licenseNumber, licensecategoryId, driversLicenseExpiration }
+        const { idDriver, name, cellPhoneNumber, licenseNumber, licenseCategoryId, driversLicenseExpiration } = req.body;
+        const newDriver = { idDriver, name, cellPhoneNumber, licenseNumber, licenseCategoryId, driversLicenseExpiration }
         const signature = req.body.signature;
         const [driverVerificationData] = await pool.query("SELECT * FROM drivers WHERE idDriver = ?", idDriver);
         const driverVerification = driverVerificationData[0];
@@ -46,7 +46,7 @@ router.post('/addDriver', async (req, res) => {
 router.get('/editDriver/:idDriver', async (req, res) => {
     try {
         const idDriver = req.params.idDriver;
-        const [driverE] = await pool.query("SELECT idDriver, name, cellPhoneNumber, licenseNumber, idlicensecategory, category, driversLicenseExpiration, firmsId ,signature FROM drivers INNER JOIN licensecategory ON drivers.`licensecategoryId` = licensecategory.`idlicensecategory` INNER JOIN firms ON drivers.`firmsId`=firms.`idFirms`WHERE idDriver = " + idDriver);
+        const [driverE] = await pool.query("SELECT idDriver, name, cellPhoneNumber, licenseNumber, idlicensecategory, category, driversLicenseExpiration, firmsId ,signature FROM drivers INNER JOIN licensecategory ON drivers.`licenseCategoryId` = licensecategory.`idlicensecategory` INNER JOIN firms ON drivers.`firmsId`=firms.`idFirms`WHERE idDriver = " + idDriver);
         const driverEdit = driverE[0];
         const [result] = await pool.query('SELECT * FROM licensecategory');
         const edit = true;
