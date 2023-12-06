@@ -1,0 +1,51 @@
+<section class="container">
+    <header class="text-light">Buscar informe</header>
+    {{#if inspectionData}}
+    <div class="col md-3" style="padding-top: 20px;">
+        <table id="example" class="table table-bordered table-hover" style="width: 100%;    ">
+            <thead>
+                <tr>
+                    <th>Nº</th>
+                    <th>Cédula</th>
+                    <th>Nombre</th>
+                    <th>Placa</th>
+                    <th>Fecha inspección</th>
+                    <th>Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each inspectionData}}
+                <tr>
+                    <td>
+                        {{idInspection}}
+                    </td>
+                    <td>
+                        {{driverId}}
+                    </td>
+                    <td>
+                        {{name}}
+                    </td>
+                    <td>
+                        {{licensePlateId}}
+                    </td>
+                    <td>
+                        {{date}}
+                    </td>
+                    <td>
+                        <div class="" style="display: flex; justify-content: space-evenly;">
+                            <a href="/informe/{{idInspection}}" target="_blank" class="btn btn-warning"><i
+                                    class="fa-solid fa-eye"></i></a>
+                            <a href="/pdf/{{idInspection}}" class="btn btn-info"><i
+                                    class="fa-solid fa-download"></i></a>
+                            <a href="/deleteReport/{{idInspection}}" class="btn btn-danger"><i
+                                    class="fa-solid fa-trash"></i></a>
+                        </div>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+
+        </table>
+    </div>
+    {{/if}}
+</section>
